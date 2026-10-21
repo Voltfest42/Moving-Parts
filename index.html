@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Interactive explainers that take big ideas in mathematics, computer science and physics apart, so you can watch them work."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Moving Parts</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <div class="heroText">
+          <p class="kicker">Interactive explainers</p>
+          <h1 class="heroTitle">Moving Parts</h1>
+          <p class="lede">Big ideas in mathematics, computer science and physics, taken apart so you can watch them work.</p>
+          <p class="intro">
+            Each explainer is a story told through live demos. The figures run the real algorithms and train real models
+            right in your browser, so you can play them, pause them, step through them one move at a time, and change the
+            inputs to see what happens.
+          </p>
+        </div>
+        <!-- Drawn by src/gears.ts. Drag a gear to turn the whole train. -->
+        <svg id="gears" class="gears" viewBox="34 22 288 214" aria-hidden="true"></svg>
+      </header>
+
+      <section aria-labelledby="explainers">
+        <h2 id="explainers" class="sectionTitle">The explainers</h2>
+        <ul class="cards">
+          <li>
+            <a class="card" href="https://dijkstra.moving-parts.dev">
+              <svg class="art" viewBox="0 0 120 64" aria-hidden="true">
+                <g class="edge">
+                  <line x1="42" y1="16" x2="78" y2="30" />
+                  <line x1="46" y1="50" x2="78" y2="30" />
+                  <line x1="78" y1="30" x2="106" y2="14" />
+                  <line x1="78" y1="30" x2="104" y2="50" />
+                  <line x1="46" y1="50" x2="104" y2="50" />
+                </g>
+                <g class="edgeTree">
+                  <line x1="14" y1="38" x2="42" y2="16" />
+                  <line x1="14" y1="38" x2="46" y2="50" />
+                </g>
+                <circle class="settled" cx="14" cy="38" r="6" />
+                <circle class="settled" cx="42" cy="16" r="6" />
+                <circle class="settled" cx="46" cy="50" r="6" />
+                <circle class="frontier" cx="78" cy="30" r="6" />
+                <circle class="unvisited" cx="106" cy="14" r="6" />
+                <circle class="unvisited" cx="104" cy="50" r="6" />
+              </svg>
+              <span class="cardMeta">Algorithms · 2022–2025</span>
+              <span class="cardTitle">Beyond Dijkstra</span>
+              <span class="cardBlurb">
+                Dijkstra's 1956 shortest-path algorithm has two built-in limits: it fails on negative costs, and it can
+                never beat sorting. Between 2022 and 2025, both fell. Watch the new algorithms run, step by step.
+              </span>
+              <span class="cardFoot">
+                <span class="level">Starts in the deep end</span>
+                <span class="contents">4 chapters · Playground</span>
+              </span>
+            </a>
+          </li>
+
+          <li>
+            <a class="card" href="https://rulebook.moving-parts.dev">
+              <svg class="art" viewBox="0 0 120 64" aria-hidden="true">
+                <g class="wire">
+                  <line x1="2" y1="20" x2="16" y2="20" />
+                  <line x1="2" y1="32" x2="16" y2="32" />
+                  <line x1="2" y1="44" x2="16" y2="44" />
+                  <line x1="56" y1="32" x2="66" y2="32" />
+                </g>
+                <rect class="blackbox" x="16" y="10" width="40" height="44" rx="6" />
+                <g class="rules">
+                  <line x1="74" y1="18" x2="114" y2="18" />
+                  <line x1="74" y1="32" x2="104" y2="32" />
+                  <line x1="74" y1="46" x2="110" y2="46" />
+                </g>
+              </svg>
+              <span class="cardMeta">Machine learning · 1988–2026</span>
+              <span class="cardTitle">From Black Box to Rulebook</span>
+              <span class="cardBlurb">
+                How do you get readable IF–THEN rules out of a neural network? Follow the answers from 1988 to today, with
+                demos that train real models and pull out their rules in your browser.
+              </span>
+              <span class="cardFoot">
+                <span class="level">Starts in the deep end</span>
+                <span class="contents">6 chapters · The Lab</span>
+              </span>
+            </a>
+          </li>
+
+          <li>
+            <div class="card cardSoon" aria-disabled="true">
+              <svg class="art" viewBox="0 0 120 64" aria-hidden="true">
+                <ellipse class="orbit" cx="60" cy="32" rx="48" ry="18" />
+                <circle class="sun" cx="60" cy="32" r="9" />
+                <circle class="planet" r="5">
+                  <animateMotion dur="9s" repeatCount="indefinite" path="M108 32 A48 18 0 1 1 12 32 A48 18 0 1 1 108 32" />
+                </circle>
+              </svg>
+              <span class="cardMeta">Astrophysics · a course</span>
+              <span class="cardTitle">The Clockwork Sky</span>
+              <span class="cardBlurb">
+                An introduction to astrophysics that starts from scratch: why the Moon has phases, how we weigh the Sun,
+                and on from there to how stars are born, shine and die.
+              </span>
+              <span class="cardFoot">
+                <span class="level levelGentle">Starts from the basics</span>
+                <span class="soonTag">Coming soon</span>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <footer class="footer">
+        <span>moving-parts.dev</span>
+        <span>More explainers are on the way.</span>
+      </footer>
+    </main>
+    <script type="module" src="/src/gears.ts"></script>
+  </body>
+</html>

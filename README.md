@@ -1,0 +1,57 @@
+# Moving Parts
+
+The front page of **moving-parts.dev**: a home for interactive explainers that take big ideas in mathematics, computer science and physics apart, so you can watch them work.
+
+It links to:
+
+- **Beyond Dijkstra** (`../Dijkstra Demo`): the 2022–2025 shortest-path breakthroughs
+- **From Black Box to Rulebook** (`../ML Rule-Extraction`): pulling readable rules out of machine-learning models
+- **The Clockwork Sky**: an introduction to astrophysics, from the basics (coming soon)
+
+The page is one static HTML file with a stylesheet and a small script for the gear train in the header. It uses the same design tokens as the two explainers (`src/styles.css`), so it follows the reader's light or dark setting the same way.
+
+## Development
+
+Requires Node 20.19 or later (developed on Node 24).
+
+```bash
+npm install
+npm run dev        # local dev server at http://localhost:5173
+npm run build      # type-check and build to dist/
+```
+
+## Layout
+
+```
+index.html       the page, including the explainer cards and their illustrations
+src/styles.css   design tokens (shared with the explainers) and page styles
+src/gears.ts     the draggable gear train in the header
+public/          favicon
+```
+
+## Adding an explainer
+
+Copy one of the `<li>` cards in `index.html`. A finished explainer is an `<a class="card">`; one that isn't out yet is a `<div class="card cardSoon">` with a "Coming soon" tag.
+
+## Deploying
+
+The domain and the front page are defined in `infra/` with AWS CDK, in two stacks:
+
+- **MovingPartsDns**: the Route 53 hosted zone for `moving-parts.dev`. The domain is registered at Porkbun, with its nameservers pointing here. The zone is kept even if the stack is deleted, so those nameservers never change.
+- **MovingPartsSite**: the front page, served from a private S3 bucket through CloudFront on `moving-parts.dev` (`www.` redirects there).
+
+Each explainer deploys from its own project, on its own subdomain in the same zone:
+
+| Explainer | Address | Project |
+| --- | --- | --- |
+| Beyond Dijkstra | https://dijkstra.moving-parts.dev | `../Dijkstra Demo` |
+| From Black Box to Rulebook | https://rulebook.moving-parts.dev | `../ML Rule-Extraction` |
+
+```bash
+npm install --prefix infra   # once
+npm run deploy               # build, upload, invalidate the CloudFront cache
+```
+
+`npm run deploy` uses the active AWS CLI profile, which must be in `us-east-1` (CloudFront only takes certificates from there). To remove the front page, run `npm --prefix infra run destroy`. That leaves the hosted zone in place.
+
+To add a new explainer, give its CDK stack a certificate and an alias record in the `moving-parts.dev` zone, the same way `infra/lib/site-stack.ts` in Beyond Dijkstra does, then add its card to `index.html`.

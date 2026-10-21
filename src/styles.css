@@ -1,0 +1,365 @@
+/* Design tokens, shared with Beyond Dijkstra and From Black Box to Rulebook. */
+:root {
+  color-scheme: light dark;
+
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --text: #1c1f24;
+  --text-muted: #5b6270;
+  --border: #e3e1da;
+  --accent: #2563eb;
+  /* Filled shapes that sit next to text (≥ 3:1 in both themes). */
+  --accent-fill: #2563eb;
+  /* Amber for small text such as labels (the state amber is too light for text). */
+  --text-warm: #b45309;
+  /* Teal for small text, for the "gentle start" label. */
+  --text-cool: #0f766e;
+
+  /* The figures' own colours, as used in the two explainers. */
+  --amber: #f59e0b;
+  --amber-deep: #d97706;
+  --unvisited: #a3a8b3;
+  --edge-default: #b9bdc6;
+  --edge-tree: #1c1f24;
+  --blackbox: #1c1f24;
+  --gear-idler: #0d9488;
+
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, monospace;
+  --radius: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161a;
+    --surface: #1c1f25;
+    --text: #e8e9ec;
+    --text-muted: #a0a6b2;
+    --border: #2e323a;
+    --accent: #6b9bff;
+    --accent-fill: #4f84f5;
+    --text-warm: #fbbf24;
+    --text-cool: #2dd4bf;
+
+    --amber: #fbbf24;
+    --amber-deep: #f59e0b;
+    --unvisited: #6b7280;
+    --edge-default: #4a505c;
+    --edge-tree: #e8e9ec;
+    --blackbox: #08090b;
+    --gear-idler: #2dd4bf;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+a {
+  color: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- page ---------- */
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 64px 32px 48px;
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 32px 16px 40px;
+  }
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+  gap: 48px;
+  align-items: center;
+}
+
+.heroText {
+  max-width: 620px;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--text-warm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+}
+
+.heroTitle {
+  font-size: clamp(2.6rem, 8vw, 4.4rem);
+  margin: 0.1em 0 0.2em;
+  letter-spacing: -0.03em;
+}
+
+.lede {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.intro {
+  margin: 1em 0 0;
+  color: var(--text-muted);
+}
+
+/* ---------- the gear train ---------- */
+
+.gears {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  touch-action: none;
+}
+
+.gears .gear {
+  cursor: grab;
+}
+
+.gears.dragging,
+.gears.dragging .gear {
+  cursor: grabbing;
+}
+
+.gearDrive {
+  fill: var(--accent-fill);
+}
+
+.gearMid {
+  fill: var(--amber);
+}
+
+.gearIdler {
+  fill: var(--gear-idler);
+}
+
+.gearHole {
+  fill: var(--bg);
+}
+
+@media (max-width: 760px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  /* Above the title on small screens, kept small so the words still come first. */
+  .gears {
+    order: -1;
+    width: min(220px, 60vw);
+    margin-bottom: 12px;
+  }
+}
+
+/* ---------- explainer cards ---------- */
+
+.sectionTitle {
+  margin: 72px 0 18px;
+  font-size: 1.4rem;
+}
+
+.cards {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 20px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+a.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Not out yet: a dashed outline instead of faded text, which would fail contrast checks. */
+.cardSoon {
+  border-style: dashed;
+  background: transparent;
+}
+
+.art {
+  display: block;
+  width: 100%;
+  height: 76px;
+  margin: 2px 0 12px;
+}
+
+.cardMeta {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.cardTitle {
+  font-weight: 750;
+  font-size: 1.22rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.cardBlurb {
+  color: var(--text-muted);
+  font-size: 0.93rem;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.cardFoot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+}
+
+.level {
+  font-weight: 700;
+  color: var(--text-warm);
+}
+
+.levelGentle {
+  color: var(--text-cool);
+}
+
+.contents {
+  color: var(--text-muted);
+}
+
+.soonTag {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  border: 1px dashed var(--border);
+  border-radius: 999px;
+  padding: 1px 9px;
+}
+
+/* Card illustrations: the same colours the explainers use in their figures. */
+
+.art .edge line {
+  stroke: var(--edge-default);
+  stroke-width: 2;
+}
+
+.art .edgeTree line {
+  stroke: var(--edge-tree);
+  stroke-width: 2.5;
+}
+
+.art .settled {
+  fill: var(--accent-fill);
+}
+
+.art .frontier {
+  fill: var(--amber);
+}
+
+.art .unvisited {
+  fill: var(--unvisited);
+}
+
+.art .wire line {
+  stroke: var(--edge-default);
+  stroke-width: 2;
+}
+
+.art .blackbox {
+  fill: var(--blackbox);
+  stroke: var(--border);
+}
+
+.art .rules line {
+  stroke: var(--amber-deep);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.art .orbit {
+  fill: none;
+  stroke: var(--edge-default);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 4;
+}
+
+.art .sun {
+  fill: var(--amber);
+}
+
+.art .planet {
+  fill: var(--accent-fill);
+}
+
+/* ---------- footer ---------- */
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin-top: 72px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
