@@ -4,8 +4,8 @@ The front page of **moving-parts.dev**: a home for interactive explainers that t
 
 It links to:
 
-- **Beyond Dijkstra** (`../Dijkstra Demo`): the 2022–2025 shortest-path breakthroughs
-- **From Black Box to Rulebook** (`../ML Rule-Extraction`): pulling readable rules out of machine-learning models
+- **Beyond Dijkstra** (`../Beyond Dijkstra`): the 2022–2025 shortest-path breakthroughs
+- **From Black Box to Rulebook** (`../From Black Box to Rulebook`): pulling readable rules out of machine-learning models
 - **The Clockwork Sky**: an introduction to astrophysics, from the basics (coming soon)
 
 The page is one static HTML file with a stylesheet and a small script for the gear train in the header. It uses the same design tokens as the two explainers (`src/styles.css`), so it follows the reader's light or dark setting the same way.
@@ -44,8 +44,8 @@ Each explainer deploys from its own project, on its own subdomain in the same zo
 
 | Explainer | Address | Project |
 | --- | --- | --- |
-| Beyond Dijkstra | https://dijkstra.moving-parts.dev | `../Dijkstra Demo` |
-| From Black Box to Rulebook | https://rulebook.moving-parts.dev | `../ML Rule-Extraction` |
+| Beyond Dijkstra | https://dijkstra.moving-parts.dev | `../Beyond Dijkstra` |
+| From Black Box to Rulebook | https://rulebook.moving-parts.dev | `../From Black Box to Rulebook` |
 
 ```bash
 npm install --prefix infra   # once
