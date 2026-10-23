@@ -20,7 +20,7 @@ const dns = new DnsStack(app, 'MovingPartsDns', {
   zoneName: DOMAIN,
   txtValues: [
     // Google Search Console: proves ownership of the whole domain, subdomains included.
-    // Paste the value Search Console shows, e.g. 'google-site-verification=abc123…'.
+    'google-site-verification=5olkNmG46fynmXNgKHaWlnB8d1G7NzTc-QkerW7OxxE',
   ],
   env,
   description: 'Moving Parts: Route 53 hosted zone for moving-parts.dev',
