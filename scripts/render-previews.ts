@@ -14,6 +14,7 @@ const TARGETS: [site: string, file: string][] = [
   ['front', 'public/og-image.png'],
   ['dijkstra', 'preview/out/beyond-dijkstra.png'],
   ['rulebook', 'preview/out/from-black-box-to-rulebook.png'],
+  ['sky', 'preview/out/the-clockwork-sky.png'],
 ];
 
 mkdirSync('preview/out', { recursive: true });

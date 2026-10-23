@@ -54,6 +54,18 @@ const CARDS: Record<string, Card> = {
         <line x1="74" y1="46" x2="110" y2="46" />
       </g>`,
   },
+  sky: {
+    kicker: 'Moving Parts · An interactive course',
+    title: 'The Clockwork Sky',
+    lede: 'Astronomy and astrophysics from the ground up: from the sky you can see to the physics inside the stars.',
+    domain: 'sky.moving-parts.dev',
+    long: true,
+    // The front page's orbit, with the planet held still on the near side.
+    art: `
+      <ellipse class="orbit" cx="60" cy="32" rx="48" ry="18" />
+      <circle class="sun" cx="60" cy="32" r="9" />
+      <circle class="planet" cx="96.8" cy="43.6" r="5" />`,
+  },
 };
 
 async function render() {
