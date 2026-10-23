@@ -44,22 +44,12 @@ export class SiteStack extends Stack {
       validation: acm.CertificateValidation.fromDns(zone),
     });
 
-    // One address for the site: www.moving-parts.dev/… → moving-parts.dev/…
-    const redirectWww = new cloudfront.Function(this, 'RedirectWww', {
+    // One address for the site, so search engines never see it twice: www.moving-parts.dev/…
+    // and the distribution's own *.cloudfront.net address both redirect to moving-parts.dev/….
+    const canonicalHost = new cloudfront.Function(this, 'RedirectWww', {
       runtime: cloudfront.FunctionRuntime.JS_2_0,
-      comment: `Redirect ${wwwName} to ${domainName}`,
-      code: cloudfront.FunctionCode.fromInline(`
-function handler(event) {
-  var request = event.request;
-  if (request.headers.host.value === '${wwwName}') {
-    return {
-      statusCode: 301,
-      statusDescription: 'Moved Permanently',
-      headers: { location: { value: 'https://${domainName}' + request.uri } },
-    };
-  }
-  return request;
-}`),
+      comment: `Redirect every other host name to ${domainName}`,
+      code: cloudfront.FunctionCode.fromInline(canonicalHostCode(domainName)),
     });
 
     const distribution = new cloudfront.Distribution(this, 'Distribution', {
@@ -75,7 +65,7 @@ function handler(event) {
         cachePolicy: cloudfront.CachePolicy.CACHING_OPTIMIZED,
         responseHeadersPolicy: cloudfront.ResponseHeadersPolicy.SECURITY_HEADERS,
         compress: true,
-        functionAssociations: [{ function: redirectWww, eventType: cloudfront.FunctionEventType.VIEWER_REQUEST }],
+        functionAssociations: [{ function: canonicalHost, eventType: cloudfront.FunctionEventType.VIEWER_REQUEST }],
       },
       // The site is a single page, so any other path is a typo: show the front page
       // instead of S3's raw "AccessDenied" XML, but keep the 404 status.
@@ -119,4 +109,30 @@ function handler(event) {
     new CfnOutput(this, 'DistributionId', { value: distribution.distributionId });
     new CfnOutput(this, 'BucketName', { value: bucket.bucketName });
   }
+}
+
+/**
+ * A CloudFront Function (viewer request) that sends any request for another
+ * host name to the same path and query on `host`, with a permanent redirect.
+ */
+export function canonicalHostCode(host: string): string {
+  return `
+function handler(event) {
+  var request = event.request;
+  if (request.headers.host.value === '${host}') return request;
+
+  var query = [];
+  for (var name in request.querystring) {
+    var param = request.querystring[name];
+    var values = param.multiValue ? param.multiValue : [param];
+    for (var i = 0; i < values.length; i++) {
+      query.push(values[i].value === '' ? name : name + '=' + values[i].value);
+    }
+  }
+  return {
+    statusCode: 301,
+    statusDescription: 'Moved Permanently',
+    headers: { location: { value: 'https://${host}' + request.uri + (query.length ? '?' + query.join('&') : '') } },
+  };
+}`;
 }

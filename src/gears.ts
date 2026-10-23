@@ -168,3 +168,6 @@ if (svg) start(svg);
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   for (const art of document.querySelectorAll<SVGSVGElement>('svg.art')) art.pauseAnimations();
 }
+
+// A module, so the link-preview card can load it too (preview/card.ts).
+export {};

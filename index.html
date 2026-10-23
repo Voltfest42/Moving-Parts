@@ -8,7 +8,61 @@
       content="Interactive explainers that take big ideas in mathematics, computer science and physics apart, so you can watch them work."
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Moving Parts</title>
+    <title>Moving Parts: interactive explainers for mathematics, computer science and physics</title>
+    <link rel="canonical" href="https://moving-parts.dev/" />
+
+    <!-- Link previews (Open Graph, used by most sites and apps, and X/Twitter). The image is rendered by `npm run previews`. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Moving Parts" />
+    <meta property="og:title" content="Moving Parts: interactive explainers" />
+    <meta
+      property="og:description"
+      content="Big ideas in mathematics, computer science and physics, taken apart so you can watch them work."
+    />
+    <meta property="og:url" content="https://moving-parts.dev/" />
+    <meta property="og:image" content="https://moving-parts.dev/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Moving Parts: three meshing gears beside the site's name" />
+    <meta property="og:locale" content="en" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Structured data: tells search engines this is a site of free educational resources, and which. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Moving Parts",
+        "url": "https://moving-parts.dev/",
+        "description": "Interactive explainers that take big ideas in mathematics, computer science and physics apart, so you can watch them work.",
+        "inLanguage": "en",
+        "hasPart": [
+          {
+            "@type": "LearningResource",
+            "name": "Beyond Dijkstra",
+            "url": "https://dijkstra.moving-parts.dev/",
+            "description": "The 2022–2025 breakthroughs in shortest paths, explained with live demos.",
+            "learningResourceType": "Interactive explainer",
+            "educationalLevel": "Advanced",
+            "about": ["Shortest path problem", "Dijkstra's algorithm", "Graph algorithms"],
+            "inLanguage": "en",
+            "isAccessibleForFree": true
+          },
+          {
+            "@type": "LearningResource",
+            "name": "From Black Box to Rulebook",
+            "url": "https://rulebook.moving-parts.dev/",
+            "description": "How researchers pull readable rules out of machine-learning models, explained with live demos.",
+            "learningResourceType": "Interactive explainer",
+            "educationalLevel": "Advanced",
+            "about": ["Rule extraction", "Explainable artificial intelligence", "Machine learning"],
+            "inLanguage": "en",
+            "isAccessibleForFree": true
+          }
+        ]
+      }
+    </script>
+
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>

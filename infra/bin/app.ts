@@ -18,6 +18,10 @@ const env = { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_
 
 const dns = new DnsStack(app, 'MovingPartsDns', {
   zoneName: DOMAIN,
+  txtValues: [
+    // Google Search Console: proves ownership of the whole domain, subdomains included.
+    // Paste the value Search Console shows, e.g. 'google-site-verification=abc123…'.
+  ],
   env,
   description: 'Moving Parts: Route 53 hosted zone for moving-parts.dev',
 });

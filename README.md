@@ -18,20 +18,32 @@ Requires Node 20.19 or later (developed on Node 24).
 npm install
 npm run dev        # local dev server at http://localhost:5173
 npm run build      # type-check and build to dist/
+npm run previews   # re-render the link-preview images (needs Node 23.6+; first time: npx playwright install chromium)
 ```
 
 ## Layout
 
 ```
-index.html       the page, including the explainer cards and their illustrations
+index.html       the page: explainer cards, head tags for search engines and link previews, structured data
 src/styles.css   design tokens (shared with the explainers) and page styles
 src/gears.ts     the draggable gear train in the header
-public/          favicon
+public/          favicon, link-preview image, robots.txt, sitemap.xml
+preview/         the link-preview card (1200 × 630) for the front page and each explainer
+scripts/         render-previews.ts: renders those cards to PNG
 ```
 
 ## Adding an explainer
 
-Copy one of the `<li>` cards in `index.html`. A finished explainer is an `<a class="card">`; one that isn't out yet is a `<div class="card cardSoon">` with a "Coming soon" tag.
+1. Copy one of the `<li>` cards in `index.html`. A finished explainer is an `<a class="card">`; one that isn't out yet is a `<div class="card cardSoon">` with a "Coming soon" tag.
+2. Add it to the `hasPart` list in the structured data in `index.html`'s head.
+3. Add its card to `preview/card.ts` and `scripts/render-previews.ts`, run `npm run previews`, and copy its image from `preview/out/` to `public/og-image.png` in the explainer's project.
+4. In the explainer's own project, copy what Beyond Dijkstra has: the head tags in `index.html`, `public/robots.txt` and `public/sitemap.xml`, and the redirect from its `*.cloudfront.net` address in `infra/lib/site-stack.ts`.
+
+## Search engines
+
+- Every site has a canonical address. The front page's CloudFront function redirects `www.` and its `*.cloudfront.net` address to `moving-parts.dev`; each explainer redirects its `*.cloudfront.net` address to its subdomain.
+- **Google Search Console** uses one *Domain* property for `moving-parts.dev`, which covers every subdomain. It is verified by a TXT record on the bare domain: the token is in `txtValues` in `infra/bin/app.ts`, deployed with `npm --prefix infra run deploy:dns`. Each site's `sitemap.xml` is submitted there.
+- **Bing Webmaster Tools** imports the sites from Search Console.
 
 ## Deploying
 

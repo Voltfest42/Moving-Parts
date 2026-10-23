@@ -19,3 +19,6 @@ Thumbs.db
 .env
 .env.*
 *.local
+
+# rendered link previews for the explainers (copied into their own projects)
+preview/out/

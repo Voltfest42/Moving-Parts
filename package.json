@@ -8,9 +8,11 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "typecheck": "tsc",
+    "previews": "node scripts/render-previews.ts",
     "deploy": "npm run build && npm --prefix infra run deploy"
   },
   "devDependencies": {
+    "playwright": "^1.64.1",
     "typescript": "^6.0.3",
     "vite": "^8.3.4"
   }

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Link preview</title>
+    <!-- The 1200 × 630 image shown when a link is shared. Rendered to PNG by scripts/render-previews.ts. -->
+    <link rel="stylesheet" href="/src/styles.css" />
+    <style>
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+
+      .preview {
+        position: relative;
+        height: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 400px;
+        gap: 56px;
+        align-items: center;
+        padding: 64px 80px 96px;
+      }
+
+      .preview .heroTitle {
+        font-size: 96px;
+        margin: 8px 0 20px;
+      }
+
+      .preview.long .heroTitle {
+        font-size: 76px;
+        line-height: 1.05;
+      }
+
+      .preview .kicker {
+        font-size: 22px;
+      }
+
+      .preview .lede {
+        font-size: 30px;
+        line-height: 1.4;
+        color: var(--text-muted);
+      }
+
+      .preview .art {
+        height: auto;
+        margin: 0;
+      }
+
+      .domain {
+        position: absolute;
+        left: 80px;
+        bottom: 52px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 24px;
+        font-weight: 650;
+        color: var(--text-muted);
+      }
+
+      .domain img {
+        width: 34px;
+        height: 34px;
+      }
+
+      /* A coloured edge, so the card stands out against white or dark feeds alike. */
+      .preview::after {
+        content: '';
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 10px;
+        background: linear-gradient(90deg, var(--accent-fill) 0 50%, var(--amber) 50% 80%, var(--gear-idler) 80%);
+      }
+    </style>
+  </head>
+  <body>
+    <main id="preview" class="preview">
+      <div>
+        <p id="kicker" class="kicker"></p>
+        <h1 id="title" class="heroTitle"></h1>
+        <p id="lede" class="lede"></p>
+      </div>
+      <div id="art"></div>
+      <p class="domain"><img src="/favicon.svg" alt="" /><span id="domain"></span></p>
+    </main>
+    <script type="module" src="./card.ts"></script>
+  </body>
+</html>
