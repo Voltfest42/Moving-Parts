@@ -6,7 +6,7 @@ It links to:
 
 - **Beyond Dijkstra** (`../Beyond Dijkstra`): the 2022–2025 shortest-path breakthroughs
 - **From Black Box to Rulebook** (`../From Black Box to Rulebook`): pulling readable rules out of machine-learning models
-- **The Clockwork Sky**: an introduction to astrophysics, from the basics (coming soon)
+- **The Clockwork Sky** (`../The Clockwork Sky`): an introduction to astrophysics, from the basics (Part I of III is out)
 
 The page is one static HTML file with a stylesheet and a small script for the gear train in the header. It uses the same design tokens as the two explainers (`src/styles.css`), so it follows the reader's light or dark setting the same way.
 
